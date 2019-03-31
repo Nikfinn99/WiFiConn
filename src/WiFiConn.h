@@ -24,7 +24,7 @@ public:
       Serial.printf("*WC IP: %s\n", WiFi.localIP().toString().c_str());
       return true;
     }
-    else if (WiFi.SSID())
+    else if (WiFi.SSID().length() > 5 && WiFi.psk().length() >= 8)
     {
       Serial.println("*WC Using last saved values.");
       Serial.print("*WC Connecting to ");
@@ -86,9 +86,6 @@ protected:
         Serial.print("\n");
         Serial.printf("*WC Could not connect to %s", WiFi.SSID().c_str());
         Serial.print("*WC Opening WifiManager");
-        
-        WiFiManager wm;
-        wm.startConfigPortal();
 
         ESP.restart();
         while (1)
